@@ -37,33 +37,26 @@ let menuItems = [
 let menuButton = document.querySelector('.menu-button')
 
 function menuCreator(arr) {
+  const menuContainer = document.createElement('div')
   let menu = document.createElement('ul')
-  menu.classList.add("menu")
-  arr.forEach((item) => {
+  menuContainer.classList.add("menu")
+  menuContainer.appendChild(menu)
+  const listItems = arr.map((item) => {
     let newItem = document.createElement('li')
     newItem.textContent = item
-    menu.appendChild(newItem)
+    return newItem
   })
-  console.log(menu)
-  return menu
+
+  listItems.forEach((e) => {
+    menu.appendChild(e)
+  })
+
+  document.querySelector('.menu-button').addEventListener("click", (event) => {
+    menuContainer.classList.toggle("menu--open")
+  })
+
+  return menuContainer
 }
 
-
-
-
-menuButton.appendChild(menuCreator(menuItems))
-menuButton.addEventListener("click", (event) => {
-  event.target.classList.toggle("menu--open")
-})
-
-
-
-// let newMenu = document.querySelector('.menu--open')
-
-
-// if (document.querySelector("img") === "menu--open") {
-//   menuButton.appendChild(menuCreator(menuItems))
-// }
-
-let newMenu = document.querySelector('.menu--open')
-// 
+const header = document.querySelector('.header');
+header.appendChild(menuCreator(menuItems))
